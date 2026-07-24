@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reuni SMP 66 Angkatan 1996</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Courier+Prime&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#F3ECDC;
+    --paper:#FBF7EC;
+    --maroon:#6E2A2A;
+    --maroon-dark:#4C1C1C;
+    --gold:#B8912F;
+    --gold-soft:#D9C089;
+    --ink:#2B2118;
+    --sage:#7C8A64;
+    --shadow: 0 10px 30px rgba(43,33,24,0.18);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background: var(--cream);
+    color: var(--ink);
+    font-family:'EB Garamond', serif;
+    font-size:18px;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  .display{font-family:'Playfair Display', serif;}
+  .mono{font-family:'Courier Prime', monospace; letter-spacing:0.08em;}
+
+  /* Texture */
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background-image: radial-gradient(circle at 1px 1px, rgba(43,33,24,0.05) 1px, transparent 0);
+    background-size: 18px 18px;
+    pointer-events:none;
+    z-index:0;
+  }
+
+  /* ===== ENVELOPE / COVER ===== */
+  #cover{
+    position:fixed; inset:0; z-index:100;
+    background: linear-gradient(160deg, var(--maroon) 0%, var(--maroon-dark) 100%);
+    display:flex; align-items:center; justify-content:center;
+    flex-direction:column;
+    color:var(--gold-soft);
+    text-align:center;
+    padding:24px;
+    transition: transform 0.9s cubic-bezier(.65,0,.35,1), opacity 0.9s ease;
+  }
+  #cover.opened{ transform:translateY(-100%); opacity:0; pointer-events:none; }
+  .seal{
+    width:92px; height:92px; border-radius:50%;
+    border:2px solid var(--gold);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Playfair Display',serif;
+    font-size:30px; font-weight:700; color:var(--gold);
+    margin-bottom:26px;
+    box-shadow: 0 0 0 6px rgba(184,145,47,0.15);
+    animation: pulse 2.6s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{ box-shadow: 0 0 0 6px rgba(184,145,47,0.15);}
+    50%{ box-shadow: 0 0 0 12px rgba(184,145,47,0.06);}
+  }
+  #cover .eyebrow{ font-size:13px; letter-spacing:0.35em; text-transform:uppercase; color:var(--gold-soft); margin-bottom:14px;}
+  #cover h1{ font-size:clamp(30px,7vw,46px); font-weight:600; color:var(--paper); margin-bottom:8px;}
+  #cover .sub{ font-size:17px; color:var(--gold-soft); font-style:italic; margin-bottom:36px;}
+  #cover .to{ font-size:14px; color:rgba(251,247,236,0.7); margin-bottom:30px;}
+  .open-btn{
+    background:transparent;
+    border:1px solid var(--gold);
+    color:var(--gold-soft);
+    font-family:'EB Garamond',serif;
+    font-size:16px;
+    letter-spacing:0.12em;
+    padding:14px 34px;
+    border-radius:2px;
+    cursor:pointer;
+    text-transform:uppercase;
+    transition: all 0.35s ease;
+  }
+  .open-btn:hover{ background:var(--gold); color:var(--maroon-dark); }
+  .flourish{ width:64px; height:1px; background:var(--gold); margin:22px auto; opacity:0.6;}
+
+  /* ===== SHARED SECTION STYLES ===== */
+  section{
+    position:relative; z-index:1;
+    padding:72px 22px;
+    max-width:640px;
+    margin:0 auto;
+  }
+  .eyebrow{
+    font-size:12px; letter-spacing:0.3em; text-transform:uppercase;
+    color:var(--maroon); text-align:center; margin-bottom:10px; font-family:'EB Garamond',serif; font-weight:600;
+  }
+  h2.title{
+    font-family:'Playfair Display',serif;
+    text-align:center;
+    font-size:clamp(26px,6vw,34px);
+    color:var(--maroon-dark);
+    margin-bottom:8px;
+  }
+  .divider{
+    width:70px; height:2px; background:var(--gold); margin:18px auto 34px; position:relative;
+  }
+  .divider::before, .divider::after{
+    content:"❖"; color:var(--gold); position:absolute; top:-9px; font-size:14px;
+  }
+  .divider::before{ left:-22px; } .divider::after{ right:-22px; }
+
+  .reveal{ opacity:0; transform:translateY(24px); transition:opacity 0.8s ease, transform 0.8s ease; }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  /* ===== HERO (after opening) ===== */
+  #hero{
+    text-align:center;
+    padding-top:64px;
+  }
+  #hero .kelas{
+    display:inline-block;
+    border:1px solid var(--gold);
+    padding:6px 16px;
+    font-size:12px;
+    letter-spacing:0.25em;
+    color:var(--maroon);
+    margin-bottom:22px;
+  }
+  #hero h1{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(34px,9vw,54px);
+    color:var(--maroon-dark);
+    line-height:1.15;
+  }
+  #hero .years{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--gold);
+    font-size:20px;
+    margin:14px 0 20px;
+  }
+  #hero p.tag{ color:var(--ink); opacity:0.85; max-width:420px; margin:0 auto; }
+
+  /* ===== COUNTDOWN ===== */
+  #countdown-box{
+    display:flex; justify-content:center; gap:14px; flex-wrap:wrap;
+    margin-top:38px;
+  }
+  .cd-cell{
+    background:var(--paper);
+    border:1px solid var(--gold-soft);
+    box-shadow:var(--shadow);
+    width:74px; padding:14px 0;
+    text-align:center;
+    border-radius:4px;
+  }
+  .cd-num{ font-family:'Playfair Display',serif; font-size:26px; color:var(--maroon-dark); font-weight:700;}
+  .cd-label{ font-size:10px; letter-spacing:0.15em; text-transform:uppercase; color:var(--sage); margin-top:4px;}
+
+  /* ===== PROFIL ACARA ===== */
+  .profile-card{
+    background:var(--paper);
+    border:1px solid var(--gold-soft);
+    box-shadow:var(--shadow);
+    padding:32px 26px;
+    text-align:center;
+    border-radius:6px;
+  }
+  .profile-card p{ margin-bottom:16px; }
+  .info-row{
+    display:flex; justify-content:center; gap:28px; margin-top:22px; flex-wrap:wrap;
+    font-family:'Courier Prime',monospace; font-size:13px; color:var(--maroon);
+  }
+  .info-row div{ text-align:center; }
+  .info-row .big{ font-size:15px; color:var(--ink); display:block; margin-top:4px; font-family:'EB Garamond',serif;}
+
+  /* ===== SUSUNAN ACARA (timeline) ===== */
+  .timeline{ position:relative; padding-left:26px; margin-top:10px;}
+  .timeline::before{
+    content:""; position:absolute; left:6px; top:6px; bottom:6px; width:1px; background:var(--gold-soft);
+  }
+  .t-item{ position:relative; padding-bottom:28px; }
+  .t-item:last-child{ padding-bottom:0; }
+  .t-item::before{
+    content:""; position:absolute; left:-26px; top:4px; width:11px; height:11px; border-radius:50%;
+    background:var(--paper); border:2px solid var(--maroon);
+  }
+  .t-time{ font-family:'Courier Prime',monospace; color:var(--maroon); font-size:13px; letter-spacing:0.05em;}
+  .t-title{ font-family:'Playfair Display',serif; font-size:18px; color:var(--ink); margin-top:2px;}
+
+  /* ===== LOKASI ===== */
+  .map-card{
+    background:var(--paper); border:1px solid var(--gold-soft); box-shadow:var(--shadow);
+    padding:28px; text-align:center; border-radius:6px;
+  }
+  .map-card .venue{ font-family:'Playfair Display',serif; font-size:21px; color:var(--maroon-dark); margin-bottom:6px;}
+  .map-card .addr{ color:var(--ink); opacity:0.8; margin-bottom:20px; font-size:15px;}
+  .btn{
+    display:inline-block; background:var(--maroon); color:var(--paper);
+    padding:13px 28px; border-radius:3px; text-decoration:none;
+    font-size:14px; letter-spacing:0.08em; text-transform:uppercase;
+    border:1px solid var(--maroon); transition:all 0.3s ease; cursor:pointer;
+  }
+  .btn:hover{ background:transparent; color:var(--maroon); }
+  .btn-outline{ background:transparent; color:var(--maroon); }
+  .btn-outline:hover{ background:var(--maroon); color:var(--paper); }
+
+  /* ===== RSVP ===== */
+  .rsvp-card{
+    background:var(--paper); border:1px solid var(--gold-soft); box-shadow:var(--shadow);
+    padding:30px 26px; border-radius:6px;
+  }
+  .field{ margin-bottom:18px; }
+  .field label{ display:block; font-size:13px; letter-spacing:0.05em; color:var(--maroon); margin-bottom:6px; font-family:'Courier Prime',monospace;}
+  .field input, .field select{
+    width:100%; padding:11px 12px; border:1px solid var(--gold-soft); border-radius:3px;
+    background:#fff; font-family:'EB Garamond',serif; font-size:16px; color:var(--ink);
+  }
+  .field input:focus, .field select:focus{ outline:2px solid var(--gold); }
+  .rsvp-submit{ width:100%; border:none; }
+  #rsvp-msg{ text-align:center; margin-top:14px; font-size:14px; color:var(--sage); min-height:20px;}
+  #rsvp-count{ text-align:center; margin-top:18px; font-family:'Courier Prime',monospace; font-size:13px; color:var(--maroon); }
+
+  /* ===== PANITIA ===== */
+  .panitia-grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:8px; }
+  .panitia-card{
+    background:var(--paper); border:1px solid var(--gold-soft); border-radius:6px;
+    padding:18px 12px; text-align:center; box-shadow:0 4px 14px rgba(43,33,24,0.10);
+  }
+  .p-avatar{
+    width:52px; height:52px; border-radius:50%; background:var(--maroon);
+    color:var(--gold-soft); display:flex; align-items:center; justify-content:center;
+    font-family:'Playfair Display',serif; font-size:18px; margin:0 auto 10px;
+  }
+  .p-role{ font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:var(--sage); }
+  .p-name{ font-family:'Playfair Display',serif; font-size:15px; color:var(--ink); margin-top:3px;}
+
+  /* ===== ALBUM / GALERI ===== */
+  .gallery{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .polaroid{
+    background:#fff; padding:8px 8px 24px; box-shadow:var(--shadow);
+    transform:rotate(-2deg); border-radius:2px; position:relative;
+    cursor:pointer; transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .polaroid:hover{ transform:rotate(0deg) scale(1.04); box-shadow:0 14px 30px rgba(43,33,24,0.28); z-index:2; }
+  .polaroid:nth-child(2n){ transform:rotate(2deg); }
+  .polaroid:nth-child(2n):hover{ transform:rotate(0deg) scale(1.04); }
+  .polaroid:nth-child(3n){ transform:rotate(-1deg); }
+  .polaroid:nth-child(3n):hover{ transform:rotate(0deg) scale(1.04); }
+  .polaroid-frame{
+    position:relative; width:100%; aspect-ratio:1/1; overflow:hidden; border-radius:1px;
+    background:linear-gradient(135deg,var(--gold-soft),var(--sage));
+  }
+  .polaroid-frame img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .polaroid-placeholder{
+    position:absolute; inset:0; display:none; align-items:center; justify-content:center;
+    color:#fff; font-family:'Playfair Display',serif; font-size:13px; text-align:center; padding:10px;
+  }
+  .polaroid-cap{ text-align:center; font-family:'Courier Prime',monospace; font-size:11px; color:var(--maroon); margin-top:8px;}
+  .see-more-wrap{ text-align:center; margin-top:24px; }
+
+  /* ===== LIGHTBOX ALBUM ===== */
+  #lightbox{
+    position:fixed; inset:0; z-index:200; background:rgba(30,18,18,0.92);
+    display:none; align-items:center; justify-content:center; flex-direction:column;
+    padding:26px;
+  }
+  #lightbox.open{ display:flex; }
+  #lb-frame{
+    max-width:420px; width:100%; background:#fff; padding:14px 14px 34px;
+    box-shadow:0 20px 50px rgba(0,0,0,0.5); position:relative; border-radius:2px;
+  }
+  #lb-img-wrap{ width:100%; aspect-ratio:1/1; overflow:hidden; background:linear-gradient(135deg,var(--gold-soft),var(--sage)); display:flex; align-items:center; justify-content:center; }
+  #lb-img-wrap img{ width:100%; height:100%; object-fit:cover; display:block; }
+  #lb-placeholder{ display:none; color:#fff; font-family:'Playfair Display',serif; text-align:center; padding:16px; }
+  #lb-caption{ text-align:center; font-family:'Courier Prime',monospace; font-size:13px; color:var(--maroon); margin-top:12px;}
+  #lb-close{
+    position:absolute; top:-16px; right:-10px; width:34px; height:34px; border-radius:50%;
+    background:var(--maroon); color:var(--paper); border:2px solid var(--gold-soft);
+    display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:18px;
+  }
+  .lb-nav{
+    background:transparent; border:1px solid var(--gold-soft); color:var(--gold-soft);
+    width:44px; height:44px; border-radius:50%; font-size:20px; cursor:pointer;
+    display:flex; align-items:center; justify-content:center; transition:all 0.25s ease;
+  }
+  .lb-nav:hover{ background:var(--gold-soft); color:var(--maroon-dark); }
+  .lb-controls{ display:flex; justify-content:space-between; width:100%; max-width:420px; margin-top:18px; }
+  .lb-counter{ color:var(--gold-soft); font-family:'Courier Prime',monospace; font-size:12px; align-self:center; }
+
+  /* ===== FOOTER / STICKY WA ===== */
+  footer{
+    text-align:center; padding:60px 22px 120px; color:var(--maroon-dark);
+  }
+  footer .closing{ font-family:'Playfair Display',serif; font-style:italic; font-size:19px; margin-bottom:6px;}
+  footer .small{ font-size:13px; opacity:0.7; }
+
+  #wa-float{
+    position:fixed; bottom:20px; left:50%; transform:translateX(-50%);
+    z-index:50;
+    background:var(--maroon); color:var(--paper);
+    padding:14px 26px; border-radius:30px;
+    box-shadow:0 8px 20px rgba(76,28,28,0.35);
+    text-decoration:none; font-size:14px; letter-spacing:0.05em;
+    display:flex; align-items:center; gap:8px;
+    transition: transform 0.25s ease;
+  }
+  #wa-float:hover{ transform:translateX(-50%) scale(1.04); }
+  #wa-float svg{ width:18px; height:18px; fill:var(--gold-soft); }
+
+  .note{
+    font-size:12px; color:var(--sage); text-align:center; margin-top:10px; font-style:italic;
+  }
+
+  /* ===== MUSIC TOGGLE ===== */
+  #music-toggle{
+    position:fixed; top:18px; right:18px; z-index:110;
+    width:52px; height:52px; border-radius:50%;
+    background: radial-gradient(circle at 35% 35%, #3a2a1a 0%, var(--ink) 70%);
+    border:2px solid var(--gold);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+    box-shadow: var(--shadow);
+    animation: spin 6s linear infinite;
+    animation-play-state: paused;
+  }
+  #music-toggle.playing{ animation-play-state: running; }
+  #music-toggle svg{ width:20px; height:20px; fill:none; stroke:var(--gold-soft); stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+  #music-toggle::after{
+    content:""; position:absolute; width:8px; height:8px; border-radius:50%;
+    background:var(--gold); opacity:0.8;
+  }
+  @keyframes spin{ from{ transform:rotate(0deg);} to{ transform:rotate(360deg);} }
+
+  @media(max-width:420px){
+    .info-row{ gap:16px; }
+    .panitia-grid{ grid-template-columns:1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= COVER / ENVELOPE ================= -->
+<div id="cover">
+  <div class="eyebrow">Undangan Reuni</div>
+  <div class="seal">66</div>
+  <h1 class="display">SMP Negeri 66</h1>
+  <div class="sub">Angkatan 1996</div>
+  <div class="flourish"></div>
+  <div class="to">Kepada Sahabat Angkatan 1996<br>di manapun berada</div>
+  <button class="open-btn" onclick="openInvitation()">Buka Undangan</button>
+</div>
+
+<!-- ================= HERO ================= -->
+<section id="hero">
+  <span class="kelas mono">REUNI • 30 TAHUN KEBERSAMAAN</span>
+  <h1>Mengenang<br>Masa Putih&nbsp;Biru</h1>
+  <div class="years">Angkatan 1996 — 2026</div>
+  <p class="tag">Setelah 30 tahun berpisah jalan, saatnya kita berkumpul kembali, bertukar cerita, dan mengenang masa-masa paling berkesan di SMP Negeri 66.</p>
+
+  <div id="countdown-box">
+    <div class="cd-cell"><div class="cd-num" id="cd-hari">00</div><div class="cd-label">Hari</div></div>
+    <div class="cd-cell"><div class="cd-num" id="cd-jam">00</div><div class="cd-label">Jam</div></div>
+    <div class="cd-cell"><div class="cd-num" id="cd-menit">00</div><div class="cd-label">Menit</div></div>
+    <div class="cd-cell"><div class="cd-num" id="cd-detik">00</div><div class="cd-label">Detik</div></div>
+  </div>
+  <p class="note"></p>
+</section>
+
+<!-- ================= PROFIL ACARA ================= -->
+<section id="profil" class="reveal">
+  <div class="eyebrow mono">Profil Acara</div>
+  <h2 class="title">Reuni SMP 66</h2>
+  <div class="divider"></div>
+  <div class="profile-card">
+    <p>Reuni ini digagas untuk mempertemukan kembali seluruh alumni Angkatan 1996, mengenang kembali kelas, guru, dan sahabat lama sambil merayakan perjalanan hidup masing-masing selama tiga dekade terakhir.</p>
+    <div class="info-row">
+      <div>Hari, Tanggal<span class="big">Sabtu, 10 Oktober 2026</span></div>
+      <div>Pukul<span class="big">09.00 — Selesai</span></div>
+      <div>Dress Code<span class="big">Batik / Kasual Rapi</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SUSUNAN ACARA ================= -->
+<section id="acara" class="reveal">
+  <div class="eyebrow mono">Rundown</div>
+  <h2 class="title">Susunan Acara</h2>
+  <div class="divider"></div>
+  <div class="timeline">
+    <div class="t-item"><div class="t-time">08.30 — 09.00</div><div class="t-title">Registrasi & Welcome Drink</div></div>
+    <div class="t-item"><div class="t-time">09.00 — 09.30</div><div class="t-title">Pembukaan & Sambutan Panitia</div></div>
+    <div class="t-item"><div class="t-time">09.30 — 10.30</div><div class="t-title">Nostalgia & Pemutaran Video Kenangan</div></div>
+    <div class="t-item"><div class="t-time">10.30 — 12.00</div><div class="t-title">Games & Kuis Seputar Masa SMP</div></div>
+    <div class="t-item"><div class="t-time">12.00 — 13.00</div><div class="t-title">Makan Siang Bersama</div></div>
+    <div class="t-item"><div class="t-time">13.00 — 14.00</div><div class="t-title">Foto Bersama Angkatan</div></div>
+    <div class="t-item"><div class="t-time">14.00 — 15.00</div><div class="t-title">Hiburan & Bagi-bagi Doorprize</div></div>
+    <div class="t-item"><div class="t-time">15.00</div><div class="t-title">Penutupan</div></div>
+  </div>
+</section>
+
+<!-- ================= LOKASI ================= -->
+<section id="lokasi" class="reveal">
+  <div class="eyebrow mono">Tempat</div>
+  <h2 class="title">Lokasi Acara</h2>
+  <div class="divider"></div>
+  <div class="map-card">
+    <div class="venue">SMP 66</div>
+    <div class="addr">Jl. Masjid Jami An-Nur III No.45, RT.13/RW.1, Grogol Sel., Kec. Kebayoran Lama, Jakarta Selatan</div>
+    <a class="btn" id="maps-link" href="https://maps.app.goo.gl/sBUmUwPp2UuUEB5w5" target="_blank" rel="noopener">Buka di Google Maps</a>
+  </div>
+  <p class="note"></p>
+</section>
+
+<!-- ================= RSVP ================= -->
+<section id="rsvp" class="reveal">
+  <div class="eyebrow mono">Konfirmasi</div>
+  <h2 class="title">RSVP Kehadiran</h2>
+  <h2 class="title">No Rek BCA/Mandiri/BRI</h2>
+    <h2 class="title">A/n xxxxx</h2>
+  
+  <div class="divider"></div>
+  <div class="rsvp-card">
+    <div class="field">
+      <label>Nama Lengkap</label>
+      <input type="text" id="f-nama" placeholder="Nama saat SMP / sekarang">
+    </div>
+    <div class="field">
+      <label>Kelas Dulu (opsional)</label>
+      <input type="text" id="f-kelas" placeholder="Misal: 3B">
+    </div>
+    <div class="field">
+      <label>Konfirmasi Kehadiran</label>
+      <select id="f-hadir">
+        <option value="Hadir">Insya Allah Hadir</option>
+        <option value="Tidak Hadir">Belum Bisa Hadir</option>
+        <option value="Ragu">Masih Ragu</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Jumlah Orang (termasuk pendamping)</label>
+      <input type="number" id="f-jumlah" min="1" value="1">
+    </div>
+    <button class="btn rsvp-submit" onclick="submitRSVP()">Kirim Konfirmasi via WhatsApp</button>
+    <div id="rsvp-msg"></div>
+  </div>
+  <p class="note"></p>
+</section>
+
+<!-- ================= PANITIA ================= -->
+<section id="panitia" class="reveal">
+  <div class="eyebrow mono">Panitia Reuni</div>
+  <h2 class="title">Daftar Panitia</h2>
+  <div class="divider"></div>
+  <div class="panitia-grid">
+    <div class="panitia-card"><div class="p-avatar">K</div><div class="p-role">Ketua Panitia</div><div class="p-name">[Nama Ketua]</div></div>
+    <div class="panitia-card"><div class="p-avatar">W</div><div class="p-role">Wakil Ketua</div><div class="p-name">[Nama Wakil]</div></div>
+    <div class="panitia-card"><div class="p-avatar">B</div><div class="p-role">Bendahara</div><div class="p-name">[Nama Bendahara]</div></div>
+    <div class="panitia-card"><div class="p-avatar">S</div><div class="p-role">Sekretaris</div><div class="p-name">[Nama Sekretaris]</div></div>
+    <div class="panitia-card"><div class="p-avatar">A</div><div class="p-role">Koord. Acara</div><div class="p-name">[Nama]</div></div>
+    <div class="panitia-card"><div class="p-avatar">D</div><div class="p-role">Dokumentasi</div><div class="p-name">[Nama]</div></div>
+  </div>
+</section>
+
+<!-- ================= GALERI / ALBUM ================= -->
+<section id="galeri" class="reveal">
+  <div class="eyebrow mono">Kenangan</div>
+  <h2 class="title">Album Foto Zaman SMP</h2>
+  <div class="divider"></div>
+  <div class="gallery" id="gallery-grid"></div>
+  <p class="note">*Tap salah satu foto untuk memperbesar. Ganti nama file di daftar foto (dalam kode) dengan foto asli angkatan.</p>
+</section>
+
+<!-- Lightbox album -->
+<div id="lightbox">
+  <div id="lb-frame">
+    <div id="lb-close" onclick="closeLightbox()">×</div>
+    <div id="lb-img-wrap">
+      <img id="lb-img" src="" alt="">
+      <div id="lb-placeholder"></div>
+    </div>
+    <div id="lb-caption"></div>
+  </div>
+  <div class="lb-controls">
+    <button class="lb-nav" onclick="navLightbox(-1)" aria-label="Foto sebelumnya">‹</button>
+    <span class="lb-counter" id="lb-counter"></span>
+    <button class="lb-nav" onclick="navLightbox(1)" aria-label="Foto berikutnya">›</button>
+  </div>
+</div>
+
+<!-- ================= FOOTER ================= -->
+<footer class="reveal">
+  <div class="closing">"Waktu berlalu, kenangan tak pernah pergi."</div>
+  <div class="small">Sampai jumpa di Reuni, Angkatan 1996 🤍</div>
+</footer>
+
+<!-- ===== MUSIK LATAR ===== -->
+<!-- Taruh file musik.mp3 di folder yang sama dengan file HTML ini -->
+<audio id="bg-music" loop preload="none">
+  <source src="sahabat-kecil.mp3" type="audio/mpeg">
+</audio>
+<div id="music-toggle" onclick="toggleMusic()" role="button" aria-label="Putar / jeda musik" title="Putar / jeda musik">
+  <svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+</div>
+
+<a id="wa-float" href="https://chat.whatsapp.com/BWqrmkrB7GHDNJmoYenOfI" target="_blank" rel="noopener">
+  <svg viewBox="0 0 24 24"><path d="M20.5 3.5A11.8 11.8 0 0 0 12 0C5.6 0 .3 5.3.3 11.7c0 2.1.5 4 1.5 5.8L0 24l6.7-1.8a11.6 11.6 0 0 0 5.3 1.3h.1c6.4 0 11.6-5.3 11.6-11.7 0-3.1-1.2-6-3.2-8.3zM12 21.3h-.1a9.6 9.6 0 0 1-4.9-1.3l-.3-.2-3.6 1 1-3.5-.2-.4a9.5 9.5 0 0 1-1.5-5.2C2.4 6.4 6.7 2.1 12 2.1c2.6 0 5 1 6.8 2.9a9.6 9.6 0 0 1 2.8 6.8c0 5.3-4.3 9.5-9.6 9.5z"/></svg>
+  Gabung Grup WhatsApp
+</a>
+
+<script>
+  function openInvitation(){
+    document.getElementById('cover').classList.add('opened');
+    document.body.style.overflow = 'auto';
+    // Musik mulai otomatis saat undangan dibuka (perlu interaksi user karena aturan browser)
+    const music = document.getElementById('bg-music');
+    music.volume = 0.6;
+    music.play().then(()=>{
+      document.getElementById('music-toggle').classList.add('playing');
+    }).catch(()=>{
+      // Jika file musik.mp3 belum ada / diblokir browser, ikon tetap diam
+    });
+  }
+
+  function toggleMusic(){
+    const music = document.getElementById('bg-music');
+    const btn = document.getElementById('music-toggle');
+    if(music.paused){
+      music.play().then(()=> btn.classList.add('playing')).catch(()=>{
+        alert('Musik belum tersedia. Tambahkan file musik.mp3 di folder yang sama dengan file undangan ini.');
+      });
+    }else{
+      music.pause();
+      btn.classList.remove('playing');
+    }
+  }
+
+  // ===== Countdown =====
+  // GANTI tanggal target sesuai hari-H asli
+  const targetDate = new Date('2026-10-10T09:00:00');
+  function updateCountdown(){
+    const now = new Date();
+    let diff = targetDate - now;
+    if(diff < 0) diff = 0;
+    const d = Math.floor(diff / (1000*60*60*24));
+    const h = Math.floor((diff / (1000*60*60)) % 24);
+    const m = Math.floor((diff / (1000*60)) % 60);
+    const s = Math.floor((diff / 1000) % 60);
+    document.getElementById('cd-hari').textContent = String(d).padStart(2,'0');
+    document.getElementById('cd-jam').textContent = String(h).padStart(2,'0');
+    document.getElementById('cd-menit').textContent = String(m).padStart(2,'0');
+    document.getElementById('cd-detik').textContent = String(s).padStart(2,'0');
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  // ===== Scroll reveal =====
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold:0.15 });
+  document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+  // ===== RSVP dikirim langsung ke WhatsApp panitia =====
+  // GANTI nomor di bawah dengan nomor WA panitia (format: kode negara tanpa 0 / tanpa +)
+  const NOMOR_WA_PANITIA = '6287884549616';
+
+  function submitRSVP(){
+    const nama = document.getElementById('f-nama').value.trim();
+    const kelas = document.getElementById('f-kelas').value.trim();
+    const hadir = document.getElementById('f-hadir').value;
+    const jumlah = document.getElementById('f-jumlah').value;
+    const msg = document.getElementById('rsvp-msg');
+
+    if(!nama){
+      msg.textContent = 'Mohon isi nama terlebih dahulu.';
+      msg.style.color = '#a33';
+      return;
+    }
+
+    const pesan =
+`Assalamualaikum, saya ingin konfirmasi kehadiran Reuni SMP 66 Angkatan 1996:
+
+Nama Lengkap: ${nama}
+Kelas Dahulu: ${kelas || '-'}
+Konfirmasi Kehadiran: ${hadir}
+Jumlah Orang (termasuk pendamping): ${jumlah}
+
+Terima kasih.`;
+
+    const url = `https://wa.me/${NOMOR_WA_PANITIA}?text=${encodeURIComponent(pesan)}`;
+    msg.textContent = 'Membuka WhatsApp…';
+    msg.style.color = '#7C8A64';
+    window.open(url, '_blank');
+  }
+
+  // ===== ALBUM FOTO KENANGAN =====
+  // GANTI src dengan file foto asli (taruh di folder yang sama dengan file HTML ini).
+  // Kalau file belum ada, otomatis muncul kotak placeholder berwarna.
+  const photos = [
+    { src:'img/foto1.jpg', caption:'Kenangan — Foto 1' },
+    { src:'img/foto2.jpg', caption:'Kenangan — Foto 2' },
+    { src:'img/foto3.jpg', caption:'Kenangan — Foto 3' },
+    { src:'img/foto4.jpg', caption:'Kenangan — Foto 4' },
+    { src:'img/foto5.jpg', caption:'Kenangan — Foto 5' },
+    { src:'img/foto6.jpg', caption:'Kenangan — Foto 6' },
+  ];
+
+  const galleryGrid = document.getElementById('gallery-grid');
+  photos.forEach((p, i)=>{
+    const card = document.createElement('div');
+    card.className = 'polaroid';
+    card.onclick = ()=> openLightbox(i);
+    card.innerHTML = `
+      <div class="polaroid-frame">
+        <img src="${p.src}" alt="${p.caption}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="polaroid-placeholder">${p.caption.split('—')[0].trim()}</div>
+      </div>
+      <div class="polaroid-cap">${p.caption.split('—')[1] ? p.caption.split('—')[1].trim() : ''}</div>
+    `;
+    galleryGrid.appendChild(card);
+  });
+
+  let lbIndex = 0;
+  function openLightbox(i){
+    lbIndex = i;
+    renderLightbox();
+    document.getElementById('lightbox').classList.add('open');
+  }
+  function closeLightbox(){
+    document.getElementById('lightbox').classList.remove('open');
+  }
+  function navLightbox(dir){
+    lbIndex = (lbIndex + dir + photos.length) % photos.length;
+    renderLightbox();
+  }
+  function renderLightbox(){
+    const p = photos[lbIndex];
+    const img = document.getElementById('lb-img');
+    const placeholder = document.getElementById('lb-placeholder');
+    img.style.display = 'block';
+    placeholder.style.display = 'none';
+    img.src = p.src;
+    img.onerror = ()=>{
+      img.style.display = 'none';
+      placeholder.style.display = 'flex';
+      placeholder.textContent = p.caption.split('—')[0].trim();
+    };
+    document.getElementById('lb-caption').textContent = p.caption;
+    document.getElementById('lb-counter').textContent = `${lbIndex+1} / ${photos.length}`;
+  }
+  document.getElementById('lightbox').addEventListener('click', (e)=>{
+    if(e.target.id === 'lightbox') closeLightbox();
+  });
+  document.addEventListener('keydown', (e)=>{
+    if(!document.getElementById('lightbox').classList.contains('open')) return;
+    if(e.key === 'Escape') closeLightbox();
+    if(e.key === 'ArrowLeft') navLightbox(-1);
+    if(e.key === 'ArrowRight') navLightbox(1);
+  });
+</script>
+</body>
+</html>
