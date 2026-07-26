@@ -1,4 +1,4 @@
-	<!DOCTYPE html>
+<!DOCTYPE html>
 	<html lang="id">
 	<head>
 	<meta charset="UTF-8">
@@ -290,7 +290,7 @@
 		background:var(--paper); border:1px solid var(--gold-soft); border-radius:6px;
 		padding:18px 12px; text-align:center; box-shadow:0 4px 14px rgba(43,33,24,0.10);
 	  }
-	  .p-avatar-wrap{ width:52px; height:52px; margin:0 auto 10px; position:relative; }
+	  .p-avatar-wrap{ width:52px; height:52px; margin:0 auto 10px; position:relative; cursor:pointer; }
 	  .p-avatar-img{
 		width:52px; height:52px; border-radius:50%; object-fit:cover; display:block;
 		border:2px solid var(--gold-soft);
@@ -328,7 +328,7 @@
 	  .polaroid-cap{ text-align:center; font-family:'Courier Prime',monospace; font-size:11px; color:var(--maroon); margin-top:8px;}
 	  .see-more-wrap{ text-align:center; margin-top:24px; }
 
-	  /* ===== LIGHTBOX ALBUM ===== */
+	  /* ===== LIGHTBOX (dipakai untuk Album Foto & Foto Panitia) ===== */
 	  #lightbox{
 		position:fixed; inset:0; z-index:200; background:rgba(30,18,18,0.92);
 		display:none; align-items:center; justify-content:center; flex-direction:column;
@@ -567,86 +567,96 @@
 	  <div class="divider"></div>
 	  <div class="panitia-grid">
 		<div class="panitia-card">
-		  <div class="p-avatar-wrap">
+		  <div class="p-avatar-wrap" onclick="openPanitiaLightbox('panitia-ketua.jpg','Agustian[Olay] — Ketua Panitia')">
 			<img class="p-avatar-img" src="panitia-ketua.jpg" alt="Ketua Panitia" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
 			<div class="p-avatar">K</div>
 		  </div>
 		  <div class="p-role">Ketua Panitia</div>
 		  <div class="p-name">Agustian[Olay]</div>
+		  <div class="p-name">Kelas 3C</div>
 		</div>
 		<div class="panitia-card">
-		  <div class="p-avatar-wrap">
+		  <div class="p-avatar-wrap" onclick="openPanitiaLightbox('panitia-wakil.jpg','Eko Edy [Che-Q] — Wakil Ketua')">
 			<img class="p-avatar-img" src="panitia-wakil.jpg" alt="Wakil Ketua" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
 			<div class="p-avatar">W</div>
 		  </div>
 		  <div class="p-role">Wakil Ketua</div>
 		  <div class="p-name">Eko Edy [Che-Q]</div>
+		  <div class="p-name">Kelas 3 D</div>
 		</div>
 		<div class="panitia-card">
-		  <div class="p-avatar-wrap">
+		  <div class="p-avatar-wrap" onclick="openPanitiaLightbox('panitia-bendahara.jpg','Gusti — Bendahara, Kelas 3C')">
 			<img class="p-avatar-img" src="panitia-bendahara.jpg" alt="Bendahara" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
 			<div class="p-avatar">B</div>
 		  </div>
 		  <div class="p-role">Bendahara</div>
 		  <div class="p-name">Gusti</div>
+		  <div class="p-name">Kelas 3C</div>
 		</div>
 		<div class="panitia-card">
-		  <div class="p-avatar-wrap">
+		  <div class="p-avatar-wrap" onclick="openPanitiaLightbox('panitia-sekretaris.jpg','Vera — Sekretaris, Kelas 3A')">
 			<img class="p-avatar-img" src="panitia-sekretaris.jpg" alt="Sekretaris" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
 			<div class="p-avatar">S</div>
 		  </div>
 		  <div class="p-role">Sekretaris</div>
-		  <div class="p-name">Verawaty</div>
+		  <div class="p-name">Vera - Kelas 3A</div>
+		  <div class="p-name">Kelas 3A</div>
 		</div>
 		<div class="panitia-card">
-		  <div class="p-avatar-wrap">
+		  <div class="p-avatar-wrap" onclick="openPanitiaLightbox('panitia-acara.jpg','Sari — Koord. Acara, Kelas 3E')">
 			<img class="p-avatar-img" src="panitia-acara.jpg" alt="Koord. Acara" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
 			<div class="p-avatar">A</div>
 		  </div>
 		  <div class="p-role">Koord. Acara</div>
 		  <div class="p-name">Sari</div>
+		  <div class="p-name">Kelas 3 E</div>
 		</div>
 		<div class="panitia-card">
-		  <div class="p-avatar-wrap">
+		  <div class="p-avatar-wrap" onclick="openPanitiaLightbox('panitia-dokumentasi.jpg','Rahma — Dokumentasi')">
 			<img class="p-avatar-img" src="panitia-dokumentasi.jpg" alt="Dokumentasi" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
 			<div class="p-avatar">D</div>
 		  </div>
 		  <div class="p-role">Dokumentasi</div>
 		  <div class="p-name">Rahma</div>
+		  <div class="p-name">Kelas 3C</div>
 		</div>
+
 		<div class="panitia-card">
-		  <div class="p-avatar-wrap">
+		  <div class="p-avatar-wrap" onclick="openPanitiaLightbox('panitia-perlengkapan.jpg','Rahadi — Perlengkapan, Kelas 3E')">
 			<img class="p-avatar-img" src="panitia-perlengkapan.jpg" alt="Perlengkapan" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
 			<div class="p-avatar">E</div>
 		  </div>
 		  <div class="p-role">Perlengkapan</div>
 		  <div class="p-name">Rahadi</div>
+		  <div class="p-name">Kelas 3C</div>
 		</div>
 		<div class="panitia-card">
-		  <div class="p-avatar-wrap">
+		  <div class="p-avatar-wrap" onclick="openPanitiaLightbox('panitia-humas.jpg','Raro — Humas, Kelas 3C')">
 			<img class="p-avatar-img" src="panitia-humas.jpg" alt="Humas" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
 			<div class="p-avatar">F</div>
 		  </div>
 		  <div class="p-role">Humas</div>
 		  <div class="p-name">Raro</div>
+		  <div class="p-name">Kelas 3C	</div>
 		</div>
 		<div class="panitia-card">
-		  <div class="p-avatar-wrap">
+		  <div class="p-avatar-wrap" onclick="openPanitiaLightbox('panitia-Konsumsi.jpg','Samawati — Konsumsi')">
 			<img class="p-avatar-img" src="panitia-Konsumsi.jpg" alt="Konsumsi" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
 			<div class="p-avatar">G</div>
 		  </div>
 		  <div class="p-role">Konsumsi</div>
 		  <div class="p-name">Samawati</div>
+		  <div class="p-name">Kelas 3A</div>
 		</div>
 		<div class="panitia-card">
-		  <div class="p-avatar-wrap">
+		  <div class="p-avatar-wrap" onclick="openPanitiaLightbox('panitia-all_crew.jpg','All Crew — Kebersihan')">
 			<img class="p-avatar-img" src="panitia-all_crew.jpg" alt="all_Crew" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
 			<div class="p-avatar">H</div>
 		  </div>
 		  <div class="p-role">Kebersihan</div>
 		  <div class="p-name">All Crew</div>
 		</div>
-		
+
 	  </div>
 	</section>
 
@@ -659,7 +669,7 @@
 	  <p class="note">*Tap salah satu foto untuk memperbesar. Ganti nama file di daftar foto (dalam kode) dengan foto asli angkatan.</p>
 	</section>
 
-	<!-- Lightbox album -->
+	<!-- Lightbox: dipakai untuk Album Foto (dengan navigasi) & Foto Panitia (tanpa navigasi) -->
 	<div id="lightbox">
 	  <div id="lb-frame">
 		<div id="lb-close" onclick="closeLightbox()">×</div>
@@ -882,15 +892,39 @@
 	  });
 
 	  let lbIndex = 0;
+
+	  // --- Album Foto: buka lightbox dengan tombol navigasi ‹ › aktif ---
 	  function openLightbox(i){
 		lbIndex = i;
+		document.querySelectorAll('.lb-nav').forEach(b => b.style.display = 'flex');
 		renderLightbox();
 		document.getElementById('lightbox').classList.add('open');
 	  }
+
+	  // --- Foto Panitia: buka lightbox tanpa navigasi (foto tunggal) ---
+	  function openPanitiaLightbox(src, caption){
+		lbIndex = -1; // tandai ini bukan bagian dari galeri foto
+		const img = document.getElementById('lb-img');
+		const placeholder = document.getElementById('lb-placeholder');
+		img.style.display = 'block';
+		placeholder.style.display = 'none';
+		img.src = src;
+		img.onerror = ()=>{
+		  img.style.display = 'none';
+		  placeholder.style.display = 'flex';
+		  placeholder.textContent = caption;
+		};
+		document.getElementById('lb-caption').textContent = caption;
+		document.getElementById('lb-counter').textContent = '';
+		document.querySelectorAll('.lb-nav').forEach(b => b.style.display = 'none');
+		document.getElementById('lightbox').classList.add('open');
+	  }
+
 	  function closeLightbox(){
 		document.getElementById('lightbox').classList.remove('open');
 	  }
 	  function navLightbox(dir){
+		if(lbIndex < 0) return; // tidak ada navigasi untuk foto panitia
 		lbIndex = (lbIndex + dir + photos.length) % photos.length;
 		renderLightbox();
 	  }
