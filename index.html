@@ -209,6 +209,56 @@
   .btn-outline{ background:transparent; color:var(--maroon); }
   .btn-outline:hover{ background:var(--maroon); color:var(--paper); }
 
+  /* ===== BIAYA / PEMBAYARAN ===== */
+  .bank-card{
+    background: linear-gradient(160deg, var(--maroon) 0%, var(--maroon-dark) 100%);
+    border:1px solid var(--gold);
+    box-shadow:var(--shadow);
+    padding:28px 24px;
+    border-radius:6px;
+    text-align:center;
+    color:var(--gold-soft);
+    margin-bottom:22px;
+  }
+  .bank-label{
+    font-family:'Playfair Display',serif; font-size:19px; color:var(--paper); margin-bottom:12px;
+  }
+  .bank-desc{ font-size:15px; color:var(--gold-soft); line-height:1.6; margin-bottom:18px; }
+  .bank-desc strong{ color:var(--paper); }
+  .benefit-box{
+    background:rgba(251,247,236,0.08);
+    border:1px solid rgba(217,192,137,0.35);
+    border-radius:4px;
+    padding:16px 16px 14px;
+    margin-bottom:18px;
+    text-align:left;
+  }
+  .benefit-title{
+    font-size:12px; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold-soft);
+    font-family:'Courier Prime',monospace; margin-bottom:10px; text-align:center;
+  }
+  .benefit-list{
+    list-style:none; display:grid; grid-template-columns:1fr 1fr; gap:8px 10px; margin-bottom:10px;
+  }
+  .benefit-list li{
+    font-size:14px; color:var(--paper); padding-left:20px; position:relative;
+  }
+  .benefit-list li::before{
+    content:"✦"; position:absolute; left:0; color:var(--gold); font-size:12px; top:2px;
+  }
+  .benefit-caveat{
+    font-size:11px; color:var(--gold-soft); opacity:0.8; font-style:italic; text-align:center; margin-top:4px;
+  }
+  .bank-detail{
+    background:rgba(251,247,236,0.08);
+    border:1px solid rgba(217,192,137,0.35);
+    border-radius:4px;
+    padding:16px;
+  }
+  .bank-bank{ font-size:12px; letter-spacing:0.15em; text-transform:uppercase; color:var(--gold-soft); opacity:0.85; margin-bottom:8px; font-family:'Courier Prime',monospace;}
+  .bank-num{ font-family:'Courier Prime',monospace; font-size:15px; color:var(--paper); margin-bottom:4px; letter-spacing:0.03em;}
+  .bank-an{ margin-top:8px; font-size:13px; color:var(--gold-soft); font-style:italic; }
+
   /* ===== RSVP ===== */
   .rsvp-card{
     background:var(--paper); border:1px solid var(--gold-soft); box-shadow:var(--shadow);
@@ -224,6 +274,15 @@
   .rsvp-submit{ width:100%; border:none; }
   #rsvp-msg{ text-align:center; margin-top:14px; font-size:14px; color:var(--sage); min-height:20px;}
   #rsvp-count{ text-align:center; margin-top:18px; font-family:'Courier Prime',monospace; font-size:13px; color:var(--maroon); }
+  .biaya-box{
+    background:#fff; border:1px dashed var(--gold); border-radius:4px;
+    padding:12px 14px; margin-bottom:18px; font-family:'Courier Prime',monospace; font-size:13px; color:var(--maroon);
+  }
+  .biaya-box .biaya-total{ font-size:16px; font-family:'EB Garamond',serif; color:var(--ink); margin-top:4px; }
+  .rsvp-note{
+    font-size:13px; color:var(--maroon); background:rgba(184,145,47,0.1);
+    border-left:3px solid var(--gold); padding:10px 12px; margin-top:16px; text-align:left; line-height:1.5;
+  }
 
   /* ===== PANITIA ===== */
   .panitia-grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:8px; }
@@ -231,10 +290,16 @@
     background:var(--paper); border:1px solid var(--gold-soft); border-radius:6px;
     padding:18px 12px; text-align:center; box-shadow:0 4px 14px rgba(43,33,24,0.10);
   }
+  .p-avatar-wrap{ width:52px; height:52px; margin:0 auto 10px; position:relative; }
+  .p-avatar-img{
+    width:52px; height:52px; border-radius:50%; object-fit:cover; display:block;
+    border:2px solid var(--gold-soft);
+  }
   .p-avatar{
     width:52px; height:52px; border-radius:50%; background:var(--maroon);
-    color:var(--gold-soft); display:flex; align-items:center; justify-content:center;
-    font-family:'Playfair Display',serif; font-size:18px; margin:0 auto 10px;
+    color:var(--gold-soft); display:none; align-items:center; justify-content:center;
+    font-family:'Playfair Display',serif; font-size:18px;
+    position:absolute; top:0; left:0;
   }
   .p-role{ font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:var(--sage); }
   .p-name{ font-family:'Playfair Display',serif; font-size:15px; color:var(--ink); margin-top:3px;}
@@ -420,10 +485,34 @@
 <section id="rsvp" class="reveal">
   <div class="eyebrow mono">Konfirmasi</div>
   <h2 class="title">RSVP Kehadiran</h2>
-  <h2 class="title">No Rek BCA/Mandiri/BRI</h2>
-    <h2 class="title">A/n xxxxx</h2>
-  
   <div class="divider"></div>
+
+  <div class="bank-card">
+    <div class="bank-label">Kontribusi &amp; Pembayaran</div>
+    <div class="bank-desc">
+      Kontribusi acara <strong>Rp 200.000 / Alumni</strong>.<br>
+      Pasangan / anggota keluarga yang ikut hadir dikenakan biaya tambahan
+      <strong>Rp 50.000 / orang</strong>.
+    </div>
+    <div class="benefit-box">
+      <div class="benefit-title">Khusus Alumni, sudah termasuk:</div>
+      <ul class="benefit-list">
+        <li>Mug Kenangan</li>
+        <li>Gimmick Cantik</li>
+        <li>Cetak Foto Kenangan</li>
+        <li>Sesi Foto Booth</li>
+      </ul>
+      <div class="benefit-caveat">*Fasilitas di atas khusus untuk Alumni, tidak berlaku untuk pendamping/keluarga.</div>
+    </div>
+    <div class="bank-detail">
+      <div class="bank-bank">Transfer ke rekening</div>
+      <div class="bank-num">BCA — xxxxxxxxxx</div>
+      <div class="bank-num">Mandiri — xxxxxxxxxx</div>
+      <div class="bank-num">BRI — xxxxxxxxxx</div>
+      <div class="bank-an">a.n. xxxxx (Bendahara Panitia)</div>
+    </div>
+  </div>
+
   <div class="rsvp-card">
     <div class="field">
       <label>Nama Lengkap</label>
@@ -443,10 +532,30 @@
     </div>
     <div class="field">
       <label>Jumlah Orang (termasuk pendamping)</label>
-      <input type="number" id="f-jumlah" min="1" value="1">
+      <input type="number" id="f-jumlah" min="1" value="1" oninput="updateBiaya()">
     </div>
-    <button class="btn rsvp-submit" onclick="submitRSVP()">Kirim Konfirmasi via WhatsApp</button>
+
+    <div class="biaya-box">
+      Alumni: <strong>Rp 200.000</strong> &nbsp;•&nbsp; Pendamping: Rp 50.000/orang
+      <div class="biaya-total">Total yang harus dibayar: <strong id="biaya-total-nilai">Rp 0</strong></div>
+    </div>
+
+    <button class="btn rsvp-submit" onclick="submitRSVP()">Buat Pesan RSVP</button>
     <div id="rsvp-msg"></div>
+
+    <div id="pesan-rsvp-box" style="display:none; margin-top:16px;">
+      <label style="display:block; font-size:13px; letter-spacing:0.05em; color:var(--maroon); margin-bottom:6px; font-family:'Courier Prime',monospace;">Pesan RSVP Anda (sudah otomatis terisi)</label>
+      <textarea id="pesan-rsvp-text" readonly rows="9" style="width:100%; padding:12px; border:1px solid var(--gold-soft); border-radius:3px; background:#fff; font-family:'Courier Prime',monospace; font-size:13px; color:var(--ink); resize:vertical;"></textarea>
+      <div style="display:flex; gap:10px; margin-top:12px; flex-wrap:wrap;">
+        <button class="btn" style="flex:1; min-width:140px;" onclick="salinPesanManual()">📋 Salin Pesan</button>
+        <a class="btn" style="flex:1; min-width:140px; text-align:center;" href="https://chat.whatsapp.com/GTaG46xBjb9HP0djvyvGDi" target="_blank" rel="noopener">💬 Buka Grup WhatsApp</a>
+      </div>
+      <div id="salin-status" style="text-align:center; margin-top:10px; font-size:13px; color:var(--sage);"></div>
+    </div>
+
+    <div class="rsvp-note">
+      📌 Klik <strong>"Buat Pesan RSVP"</strong> dulu, lalu <strong>"Salin Pesan"</strong>, baru klik <strong>"Buka Grup WhatsApp"</strong> dan tempel (paste) pesannya di sana. Setelah transfer, lampirkan juga foto/screenshot bukti pembayaran di grup yang sama.
+    </div>
   </div>
   <p class="note"></p>
 </section>
@@ -457,12 +566,54 @@
   <h2 class="title">Daftar Panitia</h2>
   <div class="divider"></div>
   <div class="panitia-grid">
-    <div class="panitia-card"><div class="p-avatar">K</div><div class="p-role">Ketua Panitia</div><div class="p-name">[Nama Ketua]</div></div>
-    <div class="panitia-card"><div class="p-avatar">W</div><div class="p-role">Wakil Ketua</div><div class="p-name">[Nama Wakil]</div></div>
-    <div class="panitia-card"><div class="p-avatar">B</div><div class="p-role">Bendahara</div><div class="p-name">[Nama Bendahara]</div></div>
-    <div class="panitia-card"><div class="p-avatar">S</div><div class="p-role">Sekretaris</div><div class="p-name">[Nama Sekretaris]</div></div>
-    <div class="panitia-card"><div class="p-avatar">A</div><div class="p-role">Koord. Acara</div><div class="p-name">[Nama]</div></div>
-    <div class="panitia-card"><div class="p-avatar">D</div><div class="p-role">Dokumentasi</div><div class="p-name">[Nama]</div></div>
+    <div class="panitia-card">
+      <div class="p-avatar-wrap">
+        <img class="p-avatar-img" src="panitia-ketua.jpg" alt="Ketua Panitia" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="p-avatar">K</div>
+      </div>
+      <div class="p-role">Ketua Panitia</div>
+      <div class="p-name">Agustian/Olay</div>
+    </div>
+    <div class="panitia-card">
+      <div class="p-avatar-wrap">
+        <img class="p-avatar-img" src="panitia-wakil.jpg" alt="Wakil Ketua" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="p-avatar">W</div>
+      </div>
+      <div class="p-role">Wakil Ketua</div>
+      <div class="p-name">[Nama Wakil]</div>
+    </div>
+    <div class="panitia-card">
+      <div class="p-avatar-wrap">
+        <img class="p-avatar-img" src="panitia-bendahara.jpg" alt="Bendahara" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="p-avatar">B</div>
+      </div>
+      <div class="p-role">Bendahara</div>
+      <div class="p-name">Gusti</div>
+    </div>
+    <div class="panitia-card">
+      <div class="p-avatar-wrap">
+        <img class="p-avatar-img" src="panitia-sekretaris.jpg" alt="Sekretaris" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="p-avatar">S</div>
+      </div>
+      <div class="p-role">Sekretaris</div>
+      <div class="p-name">[Nama Sekretaris]</div>
+    </div>
+    <div class="panitia-card">
+      <div class="p-avatar-wrap">
+        <img class="p-avatar-img" src="panitia-acara.jpg" alt="Koord. Acara" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="p-avatar">A</div>
+      </div>
+      <div class="p-role">Koord. Acara</div>
+      <div class="p-name">Sari</div>
+    </div>
+    <div class="panitia-card">
+      <div class="p-avatar-wrap">
+        <img class="p-avatar-img" src="panitia-dokumentasi.jpg" alt="Dokumentasi" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="p-avatar">D</div>
+      </div>
+      <div class="p-role">Dokumentasi</div>
+      <div class="p-name">[Nama]</div>
+    </div>
   </div>
 </section>
 
@@ -507,7 +658,7 @@
   <svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
 </div>
 
-<a id="wa-float" href="https://chat.whatsapp.com/BWqrmkrB7GHDNJmoYenOfI" target="_blank" rel="noopener">
+<a id="wa-float" href="https://chat.whatsapp.com/IXhqvoGVfilDshrxR0agGf" target="_blank" rel="noopener">
   <svg viewBox="0 0 24 24"><path d="M20.5 3.5A11.8 11.8 0 0 0 12 0C5.6 0 .3 5.3.3 11.7c0 2.1.5 4 1.5 5.8L0 24l6.7-1.8a11.6 11.6 0 0 0 5.3 1.3h.1c6.4 0 11.6-5.3 11.6-11.7 0-3.1-1.2-6-3.2-8.3zM12 21.3h-.1a9.6 9.6 0 0 1-4.9-1.3l-.3-.2-3.6 1 1-3.5-.2-.4a9.5 9.5 0 0 1-1.5-5.2C2.4 6.4 6.7 2.1 12 2.1c2.6 0 5 1 6.8 2.9a9.6 9.6 0 0 1 2.8 6.8c0 5.3-4.3 9.5-9.6 9.5z"/></svg>
   Gabung Grup WhatsApp
 </a>
@@ -564,15 +715,38 @@
   }, { threshold:0.15 });
   document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 
-  // ===== RSVP dikirim langsung ke WhatsApp panitia =====
-  // GANTI nomor di bawah dengan nomor WA panitia (format: kode negara tanpa 0 / tanpa +)
-  const NOMOR_WA_PANITIA = '6287884549616';
+  // ===== Biaya alumni + pendamping =====
+  const BIAYA_ALUMNI = 200000;
+  const BIAYA_PENDAMPING = 50000;
+  function hitungBiayaPendamping(jumlah){
+    const j = Math.max(1, parseInt(jumlah) || 1);
+    return (j - 1) * BIAYA_PENDAMPING;
+  }
+  function hitungTotalBiaya(jumlah){
+    return BIAYA_ALUMNI + hitungBiayaPendamping(jumlah);
+  }
+  function formatRupiah(num){
+    return 'Rp ' + num.toLocaleString('id-ID');
+  }
+  function updateBiaya(){
+    const jumlah = document.getElementById('f-jumlah').value;
+    const total = hitungTotalBiaya(jumlah);
+    document.getElementById('biaya-total-nilai').textContent = formatRupiah(total);
+  }
+  updateBiaya();
+
+  // ===== RSVP: pesan disalin ke clipboard, lalu membuka Grup WhatsApp Pendaftaran =====
+  // Link grup tidak bisa membawa pesan otomatis (beda dengan wa.me personal),
+  // jadi pesan disalin ke clipboard agar tinggal di-paste oleh alumni di dalam grup.
+  const LINK_GRUP_WA_PENDAFTARAN = 'https://chat.whatsapp.com/GTaG46xBjb9HP0djvyvGDi';
 
   function submitRSVP(){
     const nama = document.getElementById('f-nama').value.trim();
     const kelas = document.getElementById('f-kelas').value.trim();
     const hadir = document.getElementById('f-hadir').value;
     const jumlah = document.getElementById('f-jumlah').value;
+    const biayaPendamping = hitungBiayaPendamping(jumlah);
+    const totalBiaya = hitungTotalBiaya(jumlah);
     const msg = document.getElementById('rsvp-msg');
 
     if(!nama){
@@ -588,13 +762,63 @@ Nama Lengkap: ${nama}
 Kelas Dahulu: ${kelas || '-'}
 Konfirmasi Kehadiran: ${hadir}
 Jumlah Orang (termasuk pendamping): ${jumlah}
+Biaya Alumni: ${formatRupiah(BIAYA_ALUMNI)}
+Biaya Tambahan Pendamping/Keluarga: ${formatRupiah(biayaPendamping)}
+Total yang akan ditransfer: ${formatRupiah(totalBiaya)}
+
+Bukti transfer pembayaran akan saya lampirkan di chat ini.
 
 Terima kasih.`;
 
-    const url = `https://wa.me/${NOMOR_WA_PANITIA}?text=${encodeURIComponent(pesan)}`;
-    msg.textContent = 'Membuka WhatsApp…';
+    // Tampilkan pesan langsung di textarea di halaman (paling andal, tidak
+    // bergantung pada izin clipboard yang sering gagal saat file dibuka lokal / non-https)
+    const box = document.getElementById('pesan-rsvp-box');
+    const textarea = document.getElementById('pesan-rsvp-text');
+    textarea.value = pesan;
+    box.style.display = 'block';
+    document.getElementById('salin-status').textContent = '';
+    msg.textContent = 'Pesan RSVP siap. Klik "Salin Pesan" lalu "Buka Grup WhatsApp".';
     msg.style.color = '#7C8A64';
-    window.open(url, '_blank');
+    box.scrollIntoView({ behavior:'smooth', block:'center' });
+
+    // Coba salin otomatis sebagai bonus (kalau browser mengizinkan), tapi tidak wajib berhasil
+    if(navigator.clipboard && navigator.clipboard.writeText && window.isSecureContext){
+      navigator.clipboard.writeText(pesan).catch(()=>{});
+    }
+  }
+
+  function salinPesanManual(){
+    const textarea = document.getElementById('pesan-rsvp-text');
+    const status = document.getElementById('salin-status');
+    textarea.focus();
+    textarea.select();
+    textarea.setSelectionRange(0, 999999); // untuk perangkat mobile
+
+    let berhasil = false;
+    try{
+      berhasil = document.execCommand('copy');
+    }catch(e){
+      berhasil = false;
+    }
+
+    if(!berhasil && navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(textarea.value).then(()=>{
+        status.textContent = 'Pesan berhasil disalin ✓ — sekarang tempel di Grup WhatsApp.';
+        status.style.color = '#7C8A64';
+      }).catch(()=>{
+        status.textContent = 'Gagal menyalin otomatis. Silakan tekan lama pada teks di atas lalu pilih "Salin" secara manual.';
+        status.style.color = '#a33';
+      });
+      return;
+    }
+
+    if(berhasil){
+      status.textContent = 'Pesan berhasil disalin ✓ — sekarang tempel di Grup WhatsApp.';
+      status.style.color = '#7C8A64';
+    }else{
+      status.textContent = 'Gagal menyalin otomatis. Silakan tekan lama pada teks di atas lalu pilih "Salin" secara manual.';
+      status.style.color = '#a33';
+    }
   }
 
   // ===== ALBUM FOTO KENANGAN =====
